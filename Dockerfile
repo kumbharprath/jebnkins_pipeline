@@ -1,14 +1,14 @@
-# Use an official Python runtime as a parent image
 FROM ubuntu:20.04
 
-# Set the working directory in the container
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip
+
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+COPY . .
+
+CMD ["python3", "app.py"]
